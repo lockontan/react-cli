@@ -3,14 +3,12 @@ import ReactDOM from 'react-dom'
 
 import './index.less'
 
-const name = 'world.'
-
 class HelloMessage extends React.Component {
   render () {
-    return <h1> Hello { this.props.name } </h1>
+    return <h1> Hello world </h1>
   }
 }
 
-ReactDOM.render(<HelloMessage name={name} key={2}></HelloMessage>,
+ReactDOM.render(<HelloMessage></HelloMessage>,
   document.getElementById('app')
 )
