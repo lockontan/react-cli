@@ -39,7 +39,6 @@ exports.cssLoaders = function (options) {
         })
       })
     }
-    console.log(loaders, 1)
     // Extract CSS when that option is specified
     // (which is the case during production build)
     if (options.extract) {
@@ -52,7 +51,6 @@ exports.cssLoaders = function (options) {
     }
   }
 
-  // https://vue-loader.vuejs.org/en/configurations/extract-css.html
   return {
     css: generateLoaders(),
     postcss: generateLoaders(),
@@ -64,7 +62,7 @@ exports.cssLoaders = function (options) {
   }
 }
 
-// Generate loaders for standalone style files (outside of .vue)
+// Generate loaders for standalone style files
 exports.styleLoaders = function (options) {
   const output = []
   const loaders = exports.cssLoaders(options)
