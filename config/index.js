@@ -4,7 +4,16 @@
 
 const path = require('path')
 
-module.exports = {
+const config = {
+  // multi-page build
+  multiPage: {
+    open: true,
+    // multi-page path
+    path: path.resolve(__dirname, '../src'),
+    entries: {},
+    templates: []
+  },
+
   dev: {
 
     // Paths
@@ -79,3 +88,28 @@ module.exports = {
     bundleAnalyzerReport: process.env.npm_config_report
   }
 }
+
+if (config.multiPage.open) {
+  const glob = require('glob')
+  
+  const multiPagePath = config.multiPage.path
+  const jsPath = multiPagePath + '/*/*.js'
+  const templatePath = multiPagePath + '/*/*.html'
+
+  const entries = {}
+  // get entry file path
+  glob.sync(jsPath).forEach((resolvePath)=>{
+      const name = path.basename(path.resolve(resolvePath, '../'))
+      entries[name] = resolvePath
+  })
+
+  const templates = []
+  // get template file path
+  glob.sync(templatePath).forEach((resolvePath)=>{
+      templates.push({name: path.basename(path.resolve(resolvePath, '../')), path: resolvePath})
+  })
+  config.multiPage.entries = entries
+  config.multiPage.templates = templates
+}
+
+module.exports = config
