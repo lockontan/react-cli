@@ -10,6 +10,9 @@ const config = {
     open: true,
     // multi-page path
     path: path.resolve(__dirname, '../src'),
+    // appoint pages build or dev
+    appoint: ['main'],
+
     entries: {},
     templates: []
   },
@@ -100,13 +103,16 @@ if (config.multiPage.open) {
   // get entry file path
   glob.sync(jsPath).forEach((resolvePath)=>{
       const name = path.basename(path.resolve(resolvePath, '../'))
+      if (config.multiPage.appoint.indexOf(name) === -1) return
       entries[name] = resolvePath
   })
 
   const templates = []
   // get template file path
   glob.sync(templatePath).forEach((resolvePath)=>{
-      templates.push({name: path.basename(path.resolve(resolvePath, '../')), path: resolvePath})
+      const name = path.basename(path.resolve(resolvePath, '../'))
+      if (config.multiPage.appoint.indexOf(name) === -1) return
+      templates.push({name: name, path: resolvePath})
   })
   config.multiPage.entries = entries
   config.multiPage.templates = templates
